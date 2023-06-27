@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Twitter Clone</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <button id="show-create-user">Create User</button>
+    <button id="show-create-tweet">Create Tweet</button>
+    <button id="show-create-like">Create Like</button>
+    <button id="show-get-tweet">Get Tweet</button>
+    <button id="show-get-user-tweets">Get User Tweets</button>
+
+    <!-- Create User -->
+    <div id="create-user" style="display: none;">
+        <h2>Create User</h2>
+        <form id="user-form">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <!-- Other forms go here -->
+
+    <!-- JavaScript to handle form submissions -->
+    <script>
+    $(document).ready(function() {
+        // Show/hide forms
+        $('#show-create-user').click(function() {
+            $('#create-user').show();
+            // Hide other forms
+        });
+
+        // Other show/hide functions go here
+
+        // Handle form submissions
+        $('#user-form').submit(function(e) {
+            e.preventDefault();
+            var username = $('#username').val();
+            var password = $('#password').val();
+            $.ajax({
+                url: '/user',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ username: username, password: password }),
+                success: function(response) {
+                    console.log(response);
+                    alert('User created!');
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('Error creating user.');
+                }
+            });
+        });
+
+        // Other form submission handlers go here
+    });
+    </script>
+</body>
+</html>
